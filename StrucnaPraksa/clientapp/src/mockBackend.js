@@ -17,12 +17,14 @@ const mockBackEnd = {
             return {
                 token: "TEST_TOKEN",
                 admin: true,
+                user: 'fabijan',
             }
         }
         if (username === "test" && pw === "test") {
             return {
                 token: "TESTT_TEST__TOKEN",
                 admin: false,
+                user: "test",
             }
         }
         else {
@@ -30,12 +32,17 @@ const mockBackEnd = {
         }
     },
     register(username, password) {
-        users.push(
-            {
-                username,
-                password,
-            }
-        );
+        if(username === '' && password === '') {
+            return null;
+        } else {
+            users.push(
+                {
+                    username,
+                    password,
+                }
+            );
+            return true;
+        }
     }
 }
 
