@@ -5,8 +5,8 @@
         <b-navbar-brand>Strucna praksa</b-navbar-brand>
         <b-collapse id="nav-text-collapse" is-nav>
           <b-row>
-              <b-button variant="outline-primary">Pregled</b-button>
-              <b-button variant="outline-primary">Pregled</b-button>
+              <b-button @click="routerPush('pregled')" variant="outline-primary">Pregled</b-button>
+              <b-button @click="routerPush('dokumenti')" v-if="logedInUser" variant="outline-primary">Dokumenti</b-button>
           </b-row>
         </b-collapse>
         <b-navbar-nav class="ml-auto" v-if="!logedInUser">
@@ -82,6 +82,9 @@ export default {
       }
     },
     methods: {
+      routerPush(location) {
+        this.$router.push(location);
+      },
       logout() {
         this.logedInUser = '';
         localStorage.removeItem('token');
