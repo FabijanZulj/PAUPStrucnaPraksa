@@ -14,5 +14,19 @@ namespace StrucnaPraksa.Models
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    Username = "fabijan",
+                    Password = "admin",
+                    Role = Role.Admin,
+                    Token = null,
+                }
+            );
+        }
     }
 }
