@@ -77,7 +77,7 @@ namespace StrucnaPraksa.Services
         public void generateIzvjesce(string pdfPath, object dataObject)
         {
             var builder = new Stubble.Core.Builders.StubbleBuilder();
-            string templatePath = File.ReadAllText(Path.Combine("PDFTemplates", "prijavnicaTemplate.html"));
+            string templatePath = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(),"PDFTemplates", "prijavnicaTemplate.html"));
             var boundTemplate = builder.Build().Render(templatePath , dataObject );
             using(var re = new GcHtmlRenderer(boundTemplate))
             {
@@ -92,11 +92,12 @@ namespace StrucnaPraksa.Services
             Dnevnik dnv = _anketaContext.Dnevnici.FirstOrDefault(dnevnik => dnevnik.IdUsera == userId.ToString());
             Izvjesce izv = _anketaContext.Izvjesca.FirstOrDefault(izvjesce => izvjesce.IdUsera == userId.ToString());
 
-            if(ank == null || dnv == null || izv == null)
+            if (ank == null || dnv == null || izv == null)
             {
                 throw new ErrorDetails(400, "Nisu predani svi dokumenti i nemoguce je generirati prijavnicu");
             }
-            string pathToPossibleFile = $"Resources/Prijavnice/{user.Id}.pdf";
+            string pathToPossibleFile = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Prijavnice", $"{user.Id}.pdf");
+            //string pathToPossibleFile = $"Resources/Prijavnice/{user.Id}.pdf";
 
             if (File.Exists(pathToPossibleFile))
             {
