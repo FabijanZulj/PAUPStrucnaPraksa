@@ -1,0 +1,23 @@
+TODO 
+
+// dokumenti kontroler
+
+------ Add anketa 
+// ---- DONE add dnevnik 
+------- add izvjesce
+
+// ---- DONE FOR DNEVNIK download document 
+
+
+Generate potvrda
+
+
+
+Admin pregled statistika
+
+
+error handler in backend
+
+
+
+Kada user uploada file, ako su dva filea istog imena overwritea se, dodati user id na kraj filenamea

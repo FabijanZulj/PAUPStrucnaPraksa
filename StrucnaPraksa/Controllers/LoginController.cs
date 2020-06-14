@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ using StrucnaPraksa.Services;
 namespace StrucnaPraksa.Controllers
 {
     [ApiController]
-    [Route("/test")]
+    [Route("/api/login")]
     public class LoginController : ControllerBase
     {
 
@@ -31,17 +32,9 @@ namespace StrucnaPraksa.Controllers
         }
 
         [HttpPost("register")]
-        public User Register(LoginModel lm)
+        public User Register(RegisterModel lm)
         {
             return _userService.Register(lm);
-        }
-
-
-        [HttpGet("adminTest")]
-        [Authorize(Roles = Role.Admin)]
-        public string adminTest()
-        {
-            return "YES THIS IS ADMIN";
         }
     }
 }

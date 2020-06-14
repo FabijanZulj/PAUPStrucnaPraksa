@@ -11,6 +11,6 @@ namespace StrucnaPraksa.Services
         User Authenticate(LoginModel lm);
         IEnumerable<User> GetAll();
         User GetById(int id);
-        User Register(LoginModel lm);
+        User Register(RegisterModel lm);
     }
 }

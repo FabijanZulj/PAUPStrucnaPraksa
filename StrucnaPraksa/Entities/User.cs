@@ -12,9 +12,21 @@ namespace StrucnaPraksa.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
         public string Username { get; set; }
+
+        [Required]
         public string Password { get; set; }
+
+        [Required]
         public string Role { get; set; }
         public string Token { get; set; }
+
+        [Required]
+        public string Ime { get; set; }
+
+        [Required]
+        public string Prezime { get; set; }
     }
 }

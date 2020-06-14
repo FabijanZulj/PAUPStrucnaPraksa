@@ -18,6 +18,12 @@ using Microsoft.IdentityModel.Tokens;
 using StrucnaPraksa.Models;
 using StrucnaPraksa.Helpers;
 using StrucnaPraksa.Services;
+using Microsoft.AspNetCore.Diagnostics;
+using Newtonsoft.Json;
+using System.Net;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
 
 namespace StrucnaPraksa
 {
@@ -61,15 +67,17 @@ namespace StrucnaPraksa
             });
 
 
-
             services.AddCors();
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp";
+                configuration.RootPath = "clientapp/dist";
             });
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOsnovniPodaciService, OsnovniPodaciService>();
+            services.AddScoped<IDokumentiService, DokumentiService>();
+            services.AddScoped<IGraphService, GraphService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,25 +87,34 @@ namespace StrucnaPraksa
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseRouting();
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors();
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:8080/",
+                "http://localhost:50598/")
+                );
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            //app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseSpa(spa =>
             {
                 if (env.IsDevelopment())
                     spa.Options.SourcePath = "ClientApp";
                 else
-                    spa.Options.SourcePath = "dist";
+                    spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
                 {

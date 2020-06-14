@@ -31,7 +31,7 @@ namespace StrucnaPraksa.Services
             // return null if user not found
             System.Diagnostics.Debug.WriteLine("user: --------" + user);
             if (user == null)
-                return null;
+                throw new ErrorDetails(401, "Pogresno korisnicko ime ili lozinka");
 
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -56,16 +56,18 @@ namespace StrucnaPraksa.Services
             return _usersContext.Users.WithoutPasswords();
         }
 
-        public User Register(LoginModel lm)
+        public User Register(RegisterModel lm)
         {
             var user = _usersContext.Users.SingleOrDefault(x => x.Username == lm.Username);
-            // return null if user not found
             if (user != null)
-                return null;
+                throw new ErrorDetails(401, "Korisnicko ime se vec koristi");
+
             var registeredUser = new User();
             registeredUser.Role = Role.User;
             registeredUser.Username = lm.Username;
             registeredUser.Password = PasswordEncrypt.Encrypt(lm.Password);
+            registeredUser.Ime = lm.Ime;
+            registeredUser.Prezime = lm.Prezime;
 
             _usersContext.Users.Add(registeredUser);
             _usersContext.SaveChanges();

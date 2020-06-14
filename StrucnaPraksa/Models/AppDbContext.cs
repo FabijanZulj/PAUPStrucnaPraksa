@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StrucnaPraksa.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace StrucnaPraksa.Models
     public class AppDbContext : DbContext 
     {
         public DbSet<User> Users{ get; set; }
+        public DbSet<OsnovniPodaci> OsnovniPodaci { get; set; }
+        public DbSet<Anketa> Ankete { get; set; }
+        public DbSet<Dnevnik> Dnevnici { get; set; }
+        public DbSet<Izvjesce> Izvjesca { get; set; }
+        
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -22,8 +28,10 @@ namespace StrucnaPraksa.Models
                 {
                     Id = 1,
                     Username = "fabijan",
-                    Password = "admin",
+                    Password = "pIbvhgmpVHahDBTYUgQvew==",
                     Role = Role.Admin,
+                    Ime = "Fabijan",
+                    Prezime = "Zulj",
                     Token = null,
                 }
             );
