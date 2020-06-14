@@ -1,26 +1,44 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
     name: 'pregled',
-    component: () => import('../views/Pocetna.vue')
+    component: () => import('../views/Pocetna.vue'),
   },
   {
     path: '/dokumenti',
     name: 'dokumenti',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Dokumenti.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Dokumenti.vue'),
+  },
+  {
+    path: '/adminPregled',
+    name: 'adminPregled',
+    component: () => import('../views/AdminPregled.vue'),
+    beforeEnter: adminCheck,
+  },
+  {
+    path: '/adminGraf',
+    name: 'adminGraf',
+    component: () => import('../views/AdminGraf.vue'),
+    beforeEnter: adminCheck,
+  },
+];
+
+function adminCheck(to, from, next) {
+  if (localStorage.getItem('ADMIN') === 'Admin') {
+    next();
+  } else {
+    next('/');
   }
-]
-
+}
 const router = new VueRouter({
-  routes
-})
+  mode: 'history',
+  routes,
+});
 
-export default router
+export default router;

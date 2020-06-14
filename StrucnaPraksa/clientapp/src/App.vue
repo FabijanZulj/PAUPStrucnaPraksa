@@ -8,6 +8,7 @@
 import Layout from './views/Layout';
 
 export default {
+  title: "Strucna praksa",
   components: {
     Layout
   },
