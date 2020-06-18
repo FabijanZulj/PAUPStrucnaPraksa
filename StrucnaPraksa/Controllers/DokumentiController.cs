@@ -117,26 +117,27 @@ namespace StrucnaPraksa.Controllers
         // ADMIN ENDPOINTS =========================================================================================================================
 
         [HttpGet("getDocumentsAdmin")]
+        [Authorize(Roles = Role.Admin)]
         public List<PregledStudenata> getDocumentsAdmin(int godina)
         {
             return _dokumentiService.getAllUserDocumentsAdmin(godina);
         }
 
         [HttpGet("getIzvjesceAdmin")]
-        [Authorize()]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> getIzvjesceAdmin(string userId)
         {
             DownloadableFile dlF = await _dokumentiService.getIzvjesceForUser(userId);
             return File(dlF.Data, dlF.ContentType, dlF.fileName);
         }
         [HttpGet("getAnketaAdmin")]
-        [Authorize()]
+        [Authorize(Roles = Role.Admin)]
         public Anketa getAnketaAdmin(string userId)
         {
             return _dokumentiService.getAnketaForUser(userId);
         }
         [HttpGet("getDnevnikAdmin")]
-        [Authorize()]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> getDnevnikAdmin(string userId)
         {
             DownloadableFile dlF = await _dokumentiService.getDnevnikForUser(userId);
