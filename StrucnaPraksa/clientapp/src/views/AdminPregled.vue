@@ -117,7 +117,7 @@
       <template v-slot:cell(actions)="data">
         <b-button
         @click="generatePdf(data)"
-        v-if="data.item.anketa !== null || data.item.dnevnik !== null || data.item.izvjesce !== null" 
+        v-if="data.item.anketa !== null && data.item.dnevnik !== null && data.item.izvjesce !== null" 
         variant="success">
           <b-spinner small v-if="loadingGenerateRow == data.index"/>
           <!-- <div   class="spinner-border" role="status"></div> -->
